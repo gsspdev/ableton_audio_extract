@@ -1,23 +1,14 @@
 #!/bin/bash
 
-# Create the target directory if it doesn't exist
+# copies all ableton project frozen audio to Freezes directory
 mkdir -p Freezes
 
-# Loop over each directory in the current working directory
-for dir in */
-do
-  # Ensure it's a directory
-  if [ -d "${dir}" ]; then
-    # Define the source path
-    source_path="${dir}Samples/Processed/Freeze/"
-    
-    # Check if the source path exists
-    if [ -d "${source_path}" ]; then
-      # Copy all .wav files from the source directory to the Freezes/
-      cp "${source_path}"*.wav Freezes/
+# Loop through the found .wav files and copy each to the Freezes directory
+for i in */Samples/Processed/Freeze/*.wav; do
+    # Check if file exists and is a regular file before attempting to copy
+    if [ -f "$i" ]; then
+        cp "$i" Freezes/
+    else
+        echo "No .wav files found to copy."
     fi
-  fi
 done
-
-echo "Copy complete."
-
